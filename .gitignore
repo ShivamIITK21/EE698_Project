@@ -1,0 +1,6 @@
+/CelebA
+*/data
+*/__pycache__
+*.pth
+*saved_images*
+/env
