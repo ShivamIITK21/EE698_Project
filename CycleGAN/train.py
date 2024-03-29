@@ -14,8 +14,6 @@ import torch
 BATCH_SIZE = 32 
 IMAGE_RES = 128 
 LOAD = False
-CHECKPOINT = True
-CHECKPOINT_PATH = "./checkpoint/checkpoint.pth"
 DEVICE = "cpu"
 LR = 0.0002
 EPOCHS = 100
