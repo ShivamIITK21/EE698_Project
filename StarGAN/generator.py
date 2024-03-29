@@ -49,7 +49,10 @@ class Generator(nn.Module):
                 nn.Tanh()
                 )
     
-    def forward(self, x):
+    def forward(self, x, c):
+        c = c.view(c.size(0), c.size(1), 1, 1)
+        c = c.repeat(1, 1, x.size(2), x.size(3))
+        x = torch.cat([x, c], dim=1)
         x = self.input_layer(x)
         x = self.downsample(x)
         x = self.bottleneck(x)
@@ -57,9 +60,10 @@ class Generator(nn.Module):
         return self.output(x)
 
 def test_shape():
-    x = torch.rand(16, 8, 256, 256)
+    x = torch.rand(16, 3, 256, 256)
+    c = torch.rand(16, 5)
     g = Generator(5)
-    res = g(x)
+    res = g(x, c)
     print(f"""res {res.shape}""")
 
 

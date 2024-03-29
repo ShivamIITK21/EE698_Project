@@ -24,7 +24,10 @@ class Discriminator(nn.Module):
     def forward(self, x):
         x = self.input_layer(x)
         x = self.hidden(x)
-        return self.d_src(x), self.d_class(x)
+        d_src = self.d_src(x)
+        d_class = self.d_class(x)
+        d_class = d_class.view(d_class.size(0), d_class.size(1))
+        return d_src, d_class
 
 def test_shape():
     x = torch.rand(16, 3, 128, 128)
