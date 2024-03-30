@@ -25,3 +25,17 @@ class CelebA(Dataset):
             img = self.transform(img)
         image_one_hot = [float(x == 1) for x in img_attr]
         return img, torch.FloatTensor(image_one_hot)
+
+    def getLabelOnly(self, idx):
+        row = self.anno_table.iloc[idx].tolist()
+        img_attr = row[0:-1]
+        image_one_hot = [float(x == 1) for x in img_attr]
+        return image_one_hot 
+
+    def getImage(self, idx):
+        row = self.anno_table.iloc[idx].tolist()
+        filepath = self.img_root + "/" +  row[-1]
+        img = Image.open(filepath).convert("RGB")
+        if self.transform:
+            img = self.transform(img)
+        return img
